@@ -1,0 +1,9 @@
+version: "3.6"
+
+services:
+  webapp:
+    image: jenkins:alpine
+  jenkins:
+    image: jvandusen/nginx-proxy-webapp:latest
+    ports:
+    - "80:80"
