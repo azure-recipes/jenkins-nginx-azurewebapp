@@ -12,4 +12,5 @@ az acr create --resource-group $resourcegroup --admin-enabled --sku Basic --name
 $acrpassword = (az acr credential show --name $azurecontainerregistry --query passwords[0].value)
 az webapp create --resource-group $resourcegroup --plan $appserviceplan --multicontainer-config-type "compose" --multicontainer-config-file docker-compose.yml --name $webapp
 az webapp config container set --resource-group $resourcegroup --name $webapp --docker-registry-server-url https://$azurecontainerregistry.azurecr.io --docker-registry-server-user $azurecontainerregistry --docker-registry-server-password $acrpassword
+az webapp update --resource-group $resourcegroup --name $webapp --set httpsOnly=true
 az webapp log config --resource-group $resourcegroup --application-logging true --docker-container-logging filesystem --name $webapp
