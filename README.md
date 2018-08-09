@@ -1,6 +1,24 @@
 # Deploy Jenkins with an Nginx Reverse Proxy on Azure Web App Service
 
-## Usage (Windows PowerShell)
+## Usage
+
+### Bash Shell
+
+Execute the "deploy-jenkins.sh" script at a command line. The available parameters are:
+
+* -r or --resourcegroup (Default 'myresourcegroup'): Name of the Resource Group to be created.
+* -l or --location (Default 'westus'): Location for all resources to be created.
+* -s or --appserviceplan (Default 'myappserviceplan'): Name of the App Service Plan to be created.
+* -c or --cazurecontainerregistry (Default 'myazurecontainerregistry'): Name of the Azure Container Registry
+  to be created. This must be a globally unique name.
+* -w or --webapp (Default 'mywebapp'): Name of the Web App Service to be created. This must be a globally
+  unique name.
+
+```
+.\deploy-jenkins.sh --azurecontainerregistry myacr0192837465 --webapp mywebapp-0192837465
+```
+
+### Windows PowerShell
 
 Execute the "deploy-jenkins.ps1" script in Powershell. The available parameters are:
 
@@ -16,18 +34,14 @@ Execute the "deploy-jenkins.ps1" script in Powershell. The available parameters 
 .\deploy-jenkins.ps1 -azurecontainerregistry myacr0192837465 -webapp mywebapp-0192837465
 ```
 
-## Usage (Bash Shell)
+## Accessing Logs
 
-Execute the "deploy-jenkins.sh" script at a command line. The available parameters are:
+When Jenkins initializes, it will generate a random administrator password and output it to the log
+file. You will need this password to access Jenkins for the first time.
 
-* -r or --resourcegroup (Default 'myresourcegroup'): Name of the Resource Group to be created.
-* -l or --location (Default 'westus'): Location for all resources to be created.
-* -s or --appserviceplan (Default 'myappserviceplan'): Name of the App Service Plan to be created.
-* -c or --cazurecontainerregistry (Default 'myazurecontainerregistry'): Name of the Azure Container Registry
-  to be created. This must be a globally unique name.
-* -w or --webapp (Default 'mywebapp'): Name of the Web App Service to be created. This must be a globally
-  unique name.
+You can retrieve the log files from Azure by entering this command (Bash or PowerShell), substituting
+your resource group name and web app service name instead of "myresourcegroup" and "mywebapp":
 
 ```
-.\deploy-jenkins.sh --azurecontainerregistry myacr0192837465 --webapp mywebapp-0192837465
+az webapp log download --resource-group myresourcegroup --name mywebapp
 ```
