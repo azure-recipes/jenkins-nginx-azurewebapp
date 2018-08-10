@@ -3,6 +3,8 @@ version: "3.6"
 services:
   webapp:
     image: jenkins:alpine
+    volumes:
+    - ${WEBAPP_STORAGE_HOME}/vol/jenkins:/var/jenkins_home
   jenkins:
     image: jvandusen/nginx-proxy-webapp:latest
     ports:
